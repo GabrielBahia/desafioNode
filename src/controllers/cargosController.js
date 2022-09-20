@@ -1,4 +1,4 @@
-import cargos from "../models/Cargo";
+import cargos from "../models/Cargo.js";
 
 class CargoController {
 

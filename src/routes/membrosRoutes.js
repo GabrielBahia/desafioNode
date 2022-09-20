@@ -4,10 +4,10 @@ import MembroController from "../controllers/membrosController.js";
 const router = express.Router();
 
 router
-  .get("/membros", LivroController.index)
-  .get("/membros/:id", LivroController.show)
-  .post("/membros", LivroController.create)
-  .put("/membros/:id", LivroController.update)
-  .delete("/membros/:id", LivroController.delete)
+  .get("/membros", MembroController.index)
+  .get("/membros/:id", MembroController.show)
+  .post("/membros", MembroController.store)
+  .put("/membros/:id", MembroController.update)
+  .delete("/membros/:id", MembroController.delete)
 
 export default router;   

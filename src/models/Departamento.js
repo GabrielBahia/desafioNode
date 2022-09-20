@@ -4,6 +4,9 @@ const departamentoSchema = new mongoose.Schema(
   {
     id: {type: String},
     nome: {type: String, required: true},
+  },
+  {
+    versionKey: false
   }
 );
 

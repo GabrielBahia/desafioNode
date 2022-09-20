@@ -4,6 +4,7 @@ class MembroController {
 
   static index = (req, res) => {
     membros.find()
+      .populate(['cargo', 'departamentos'])
       .exec((err, membros) => {
         res.status(200).json(membros)
   })
@@ -13,6 +14,7 @@ class MembroController {
     const id = req.params.id;
 
     membros.findById(id)
+      .populate(['cargo', 'departamentos'])
       .exec((err, membros) => {
       if(err) {
         res.status(400).send({message: `${err.message} - Id do membro não localizado.`})
