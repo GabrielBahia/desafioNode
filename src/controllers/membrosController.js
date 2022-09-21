@@ -1,5 +1,19 @@
 const membros = require('../models/Membro.js');
 
+const { InvalidArgumentError, InternalServerError } = require('../erros');
+
+const jwt = require('jsonwebtoken');
+const blacklist = require('../../redis/manipula-blacklist');
+
+function criaTokenJWT(membro) {
+  const payload = {
+    id: membro.id
+  };
+
+  const token = jwt.sign(payload, process.env.CHAVE_JWT, { expiresIn: '15m' });
+  return token;
+}
+
 class MembroController {
 
   static index = (req, res) => {
@@ -61,6 +75,21 @@ class MembroController {
     })
   }
 
+  static login = (req, res) => {
+    const token = criaTokenJWT(req.user);
+    res.set('Authorization', token);
+    res.status(204).send();
+  }
+
+  static logout = async (req, res) => {
+    try {
+      const token = req.token;
+      await blacklist.adiciona(token);
+      res.status(204).send();
+    } catch (erro) {
+      res.status(500).json({ erro: erro.message });
+    }
+  }
 
 }
 

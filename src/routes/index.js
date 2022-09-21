@@ -3,6 +3,7 @@ const membros = require('./membrosRoutes.js');
 const departamentos = require('./departamentosRoutes.js');
 const cargos = require('./cargosRoutes.js');
 
+
 const routes = (app) => {
   app.route('/').get((req, res) => {
     res.status(200).send({titulo: "CRUD de membros"})
@@ -12,7 +13,7 @@ const routes = (app) => {
     express.json(),
     membros,
     departamentos,
-    cargos
+    cargos,
   )
 }
 
