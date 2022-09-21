@@ -1,7 +1,7 @@
-import express from "express";
-import membros from "./membrosRoutes.js"
-import departamentos from "./departamentosRoutes.js"
-import cargos from "./cargosRoutes.js"
+const express = require('express');
+const membros = require('./membrosRoutes.js');
+const departamentos = require('./departamentosRoutes.js');
+const cargos = require('./cargosRoutes.js');
 
 const routes = (app) => {
   app.route('/').get((req, res) => {
@@ -16,4 +16,4 @@ const routes = (app) => {
   )
 }
 
-export default routes
+module.exports = routes;

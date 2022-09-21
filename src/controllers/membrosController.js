@@ -1,4 +1,4 @@
-import membros from "../models/Membro.js";
+const membros = require('../models/Membro.js');
 
 class MembroController {
 
@@ -64,4 +64,4 @@ class MembroController {
 
 }
 
-export default MembroController
+module.exports = MembroController;

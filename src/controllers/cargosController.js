@@ -1,4 +1,4 @@
-import cargos from "../models/Cargo.js";
+const cargos = require('../models/Cargo.js');
 
 class CargoController {
 
@@ -62,4 +62,4 @@ class CargoController {
 
 }
 
-export default CargoController
+module.exports = CargoController;

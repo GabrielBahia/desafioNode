@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
 const cargoSchema = new mongoose.Schema(
   {
@@ -12,4 +12,4 @@ const cargoSchema = new mongoose.Schema(
 
 const cargos = mongoose.model('cargos', cargoSchema);
 
-export default cargos;
+module.exports = cargos;

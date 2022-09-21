@@ -1,4 +1,4 @@
-import departamentos from "../models/Departamento.js";
+const departamentos = require('../models/Departamento.js');
 
 class DepartamentoController {
 
@@ -62,4 +62,4 @@ class DepartamentoController {
 
 }
 
-export default DepartamentoController
+module.exports = DepartamentoController;

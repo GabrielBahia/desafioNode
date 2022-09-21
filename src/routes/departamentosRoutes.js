@@ -1,5 +1,6 @@
-import express from "express";
-import DepartamentoController from "../controllers/departamentosController.js";
+const express = require('express');
+const DepartamentoController = require('../controllers/departamentosController.js');
+
 
 const router = express.Router();
 
@@ -10,4 +11,4 @@ router
   .put("/departamentos/:id", DepartamentoController.update)
   .delete("/departamentos/:id", DepartamentoController.delete)
 
-export default router;   
+module.exports = router;  
