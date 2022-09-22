@@ -27,18 +27,9 @@ membroSchema.pre('save', function (next) {
   });
 });
 
-membroSchema.methods.comparePassword = function (candidatePassword, cb) {
-  bcrypt.compare(candidatePassword, this.senha, function (err, isMatch) {
-    if (err) {
-      return cb(err);
-    } else {
-      if(!isMatch) {
-        return cb(null, isMatch);
-      }
-      return cb(null, this);
-    }
-  });
-}
+membroSchema.methods.matchPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.senha);
+};
 
 const membros = mongoose.model('membros', membroSchema);
 

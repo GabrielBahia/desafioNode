@@ -1,5 +1,6 @@
 const express = require('express');
 const CargoController = require('../controllers/cargosController.js');
+const protect = require("../middleware/auth");
 
 const router = express.Router();
 

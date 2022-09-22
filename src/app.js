@@ -1,8 +1,7 @@
 const express = require('express');
+const dotenv = require("dotenv");
 const db = require('./config/dbConnect.js');
 const routes = require('./routes/index.js');
-
-const { autenticacao } = require('./auth/autenticacao');
 
 db.on("error", console.log.bind(console, 'Erro de conexão'))
 db.once("open", () => {

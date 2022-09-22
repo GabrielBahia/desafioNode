@@ -888,6 +888,13 @@
     "jwa" "^1.4.1"
     "safe-buffer" "^5.0.1"
 
+"jwt-redis@^7.0.3":
+  "integrity" "sha512-FEpX10Y6FBd1n7Ty0F9nPecrdDn0MSG2YWezap/xImwh+1sg6Du3pJcCuYd1ZMe8SdRST+Z4xtFbse1lPwT+Tg=="
+  "resolved" "https://registry.npmjs.org/jwt-redis/-/jwt-redis-7.0.3.tgz"
+  "version" "7.0.3"
+  dependencies:
+    "jsonwebtoken" "^8.5.1"
+
 "kareem@2.4.1":
   "integrity" "sha512-aJ9opVoXroQUPfovYP5kaj2lM7Jn02Gw13bL0lg9v0V7SaUc0qavPs0Eue7d2DcC3NjqI6QAUElXNsuZSeM+EA=="
   "resolved" "https://registry.npmjs.org/kareem/-/kareem-2.4.1.tgz"
@@ -1352,7 +1359,7 @@
   dependencies:
     "picomatch" "^2.2.1"
 
-"redis@^4.3.1":
+"redis@^4.0.6", "redis@^4.3.1":
   "integrity" "sha512-cM7yFU5CA6zyCF7N/+SSTcSJQSRMEKN0k0Whhu6J7n9mmXRoXugfWDBo5iOzGwABmsWKSwGPTU5J4Bxbl+0mrA=="
   "resolved" "https://registry.npmjs.org/redis/-/redis-4.3.1.tgz"
   "version" "4.3.1"

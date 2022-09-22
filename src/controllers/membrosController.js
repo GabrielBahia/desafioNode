@@ -1,18 +1,7 @@
 const membros = require('../models/Membro.js');
-
-const { InvalidArgumentError, InternalServerError } = require('../erros');
+const generateToken = require("../utils/generateToken");
 
 const jwt = require('jsonwebtoken');
-const blacklist = require('../../redis/manipula-blacklist');
-
-function criaTokenJWT(membro) {
-  const payload = {
-    id: membro.id
-  };
-
-  const token = jwt.sign(payload, process.env.CHAVE_JWT, { expiresIn: '15m' });
-  return token;
-}
 
 class MembroController {
 
@@ -21,7 +10,7 @@ class MembroController {
       .populate(['cargo', 'departamentos'])
       .exec((err, membros) => {
         res.status(200).json(membros)
-  })
+      })
   }
 
   static show = (req, res) => {
@@ -30,12 +19,12 @@ class MembroController {
     membros.findById(id)
       .populate(['cargo', 'departamentos'])
       .exec((err, membros) => {
-      if(err) {
-        res.status(400).send({message: `${err.message} - Id do membro não localizado.`})
-      } else {
-        res.status(200).send(membros);
-      }
-    })
+        if (err) {
+          res.status(400).send({ message: `${err.message} - Id do membro não localizado.` })
+        } else {
+          res.status(200).send(membros);
+        }
+      })
   }
 
   static store = (req, res) => {
@@ -43,8 +32,8 @@ class MembroController {
 
     membro.save((err) => {
 
-      if(err) {
-        res.status(500).send({message: `${err.message} - falha ao cadastrar membro.`})
+      if (err) {
+        res.status(500).send({ message: `${err.message} - falha ao cadastrar membro.` })
       } else {
         res.status(201).send(membro.toJSON())
       }
@@ -54,11 +43,11 @@ class MembroController {
   static update = (req, res) => {
     const id = req.params.id;
 
-    membros.findByIdAndUpdate(id, {$set: req.body}, (err) => {
-      if(!err) {
-        res.status(200).send({message: 'Membro atualizado com sucesso'})
+    membros.findByIdAndUpdate(id, { $set: req.body }, (err) => {
+      if (!err) {
+        res.status(200).send({ message: 'Membro atualizado com sucesso' })
       } else {
-        res.status(500).send({message: err.message})
+        res.status(500).send({ message: err.message })
       }
     })
   }
@@ -67,29 +56,37 @@ class MembroController {
     const id = req.params.id;
 
     membros.findByIdAndDelete(id, (err) => {
-      if(!err){
-        res.status(200).send({message: 'Membro removido com sucesso'})
+      if (!err) {
+        res.status(200).send({ message: 'Membro removido com sucesso' })
       } else {
-        res.status(500).send({message: err.message})
+        res.status(500).send({ message: err.message })
       }
     })
   }
 
-  static login = (req, res) => {
-    const token = criaTokenJWT(req.user);
-    res.set('Authorization', token);
-    res.status(204).send();
-  }
+  static async login(req, res) {
+    const { email, senha } = req.body;
+    const membro = await membros.findOne({ email });
+    if (!membro) {
+      res.status(400).json("Usuário não existe!!");
+    }
 
-  static logout = async (req, res) => {
-    try {
-      const token = req.token;
-      await blacklist.adiciona(token);
-      res.status(204).send();
-    } catch (erro) {
-      res.status(500).json({ erro: erro.message });
+    if (await membro.matchPassword(senha)) {
+      res.status(200).json({
+        id: membro.id,
+        nome: membro.nome,
+        email: membro.email,
+        token: generateToken(membro.id),
+      });
+    } else {
+      res.status(400).json("E-mail ou senha inválidos");
     }
   }
+
+  static logout(req, res) {
+    res.status(200).json("Logout efetuado com sucesso");
+  }
+
 
 }
 
