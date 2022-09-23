@@ -1,0 +1,639 @@
+{
+    "openapi": "3.0.0", 
+    "info": {
+        "version": "1.0.0",
+        "title": "API de uma empresa jr.",
+        "description": "API de uma empresa jr. que faz o gerenciamento de membros, departamentos e cargos",
+        "contact": {
+            "name": "Gabriel Gomes Bahia"
+        },
+        "servers": [
+            "http://localhost:3000"
+        ]
+    },
+
+    "paths": {
+        "/cargos": {
+            "get": {
+                "summary": "Listar cargos",
+                "description": "Essa rota é responsável por listar todos os cargos",
+                "tags": ["Cargos"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Cargo"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Cadastrar cargo",
+                "description": "Essa rota é responsável por cadastrar um novo cargo",
+                "tags": ["Cargos"],
+                "security": [{"bearerAuth": []}],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Cargo"
+                            },
+                            "example": {
+                                "membro": {
+                                    "value": {
+                                        "nome": "assessor"
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Usuário não autorizado"
+                    },
+                    "500": {
+                        "description": "Falha ao criar cargo"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Cargo"
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        
+        "/cargos/buscaNomeCargo?nome={nome}": {
+            "get": {
+                "summary": "Buscar cargo pelo nome",
+                "description": "Essa rota é responsável por buscar um cargo pelo nome",
+                "tags": ["Cargos"],
+                "parameters": [
+                    {
+                        "name": "nome",
+                        "in": "query",
+                        "description": "nome do cargo",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Cargo"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        
+        "/cargos/{id}": {
+            "get": {
+                "summary": "Listar cargo",
+                "description": "Essa rota é responsável por listar um cargo pelo id",
+                "tags": ["Cargos"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id do cargo",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Cargo"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put":{
+                "summary": "Editar cargo",
+                "description": "Essa rota é responsável por editar um novo cargo",
+                "tags": ["Cargos"],
+                "security": [{"bearerAuth": []}],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id do cargo",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Cargo"
+                            },
+                            "example": {
+                                "membro": {
+                                    "value": {
+                                        "nome": "assessor"
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Usuário não autorizado"
+                    },
+                    "500": {
+                        "description": "Falha ao editar cargo"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Cargo"
+
+                                }
+                            }
+                        }
+                    }
+                }
+            } ,
+            "delete": {
+                "summary": "Deletar cargo",
+                "description": "Essa rota é responsável por deletar um cargo pelo id",
+                "tags": ["Cargos"],
+                "security": [{"bearerAuth": []}],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id do cargo",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Usuário não autorizado"
+                    },
+                    "500": {
+                        "description": "Falha ao deletar cargo"
+                    },
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }  
+        },
+
+        "/departamentos": {
+            "get": {
+                "summary": "Listar departamentos",
+                "description": "Essa rota é responsável por listar todos os departamentos",
+                "tags": ["Departamentos"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Departamento"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Cadastrar departamento",
+                "description": "Essa rota é responsável por cadastrar um novo departamento",
+                "tags": ["Departamentos"],
+                "security": [{"bearerAuth": []}],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Departamento"
+                            },
+                            "example": {
+                                "membro": {
+                                    "value": {
+                                        "nome": "projetos"
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Usuário não autorizado"
+                    },
+                    "500": {
+                        "description": "Falha ao criar departamento"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Departamento"
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/departamentos/?id={id}": {
+            "put":{
+                "summary": "Editar departamento",
+                "description": "Essa rota é responsável por editar um novo departamento",
+                "tags": ["Departamentos"],
+                "security": [{"bearerAuth": []}],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id do departamento",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Departamento"
+                            },
+                            "example": {
+                                "membro": {
+                                    "value": {
+                                        "nome": "projetos"
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Usuário não autorizado"
+                    },
+                    "500": {
+                        "description": "Falha ao editar departamento"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Departamento"
+
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deletar departamento",
+                "description": "Essa rota é responsável por deletar um departamento pelo id",
+                "tags": ["Departamentos"],
+                "security": [{"bearerAuth": []}],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id do departamento",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Usuário não autorizado"
+                    },
+                    "500": {
+                        "description": "Falha ao deletar departamento"
+                    },
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            } 
+        },
+
+        "/departamentos/buscaNomeDepartamento?nome={nome}": {
+            "get": {
+                "summary": "Buscar departamento pelo nome",
+                "description": "Essa rota é responsável por buscar um departamento pelo nome",
+                "tags": ["Departamentos"],
+                "parameters": [
+                    {
+                        "name": "nome",
+                        "in": "query",
+                        "description": "nome do departamento",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Departamento"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/membros": {
+            "get": {
+                "summary": "Listar membros",
+                "description": "Essa rota é responsável por listar todos os membro",
+                "tags": ["Membros"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Membro"
+
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Cadastrar membro",
+                "description": "Essa rota é responsável por cadastrar um novo membro",
+                "tags": ["Membros"],
+                "security": [{"bearerAuth": []}],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Membro"
+                            },
+                            "example": {
+                                "membro": {
+                                    "value": {
+                                        "nome": "Gabriel Gomes Bahia",
+                                        "email": "gabriel@code.jr",
+                                        "senha": "123",
+                                        "aniversario": "1999/09/17",
+                                        "departamentos": ["id1", "id2"],
+                                        "cargo": "id1"
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Usuário não autorizado"
+                    },
+                    "500": {
+                        "description": "Falha ao criar membro"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Membro"
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/membros/?id={id}": {
+            "get": {
+                "summary": "Listar membro",
+                "description": "Essa rota é responsável por listar um membro pelo id",
+                "tags": ["Membros"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id do membro",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Membro"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Editar membro",
+                "description": "Essa rota é responsável por atualizar um membro específico por id",
+                "tags": ["Membros"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id do produto",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Membro"
+                            },
+                            "example": {
+                                "membro": {
+                                    "value": {
+                                        "nome": "Gabriel Gomes Bahia",
+                                        "email": "gabriel@code.jr",
+                                        "senha": "123",
+                                        "aniversario": "1999/09/17",
+                                        "departamentos": ["id1", "id2"],
+                                        "cargo": "id1"
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                },
+                "security": [{"bearerAuth": []}],
+                "responses": {
+                    "401": {
+                        "description": "Usuário não autorizado"
+                    },
+                    "500": {
+                        "description": "Falha ao editar membro"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Membro"
+
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deletar Membro",
+                "description": "Essa rota é responsável por deletar um membro pelo id",
+                "tags": ["Membros"],
+                "security": [{"bearerAuth": []}],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id do produto",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Usuário não autorizado"
+                    },
+                    "500": {
+                        "description": "Falha ao deletar membro"
+                    },
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    },
+
+    "components": {
+        "schemas": {
+            "Departamento": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "nome": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Cargo": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "nome": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Membro": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "nome": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "senha": {
+                        "type": "string"
+                    },
+                    "aniversario": {
+                        "type": "date"
+                    },
+                    "departamentos": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "properties": {
+                                "id": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    },
+                    "cargo": {
+                        "type": "integer",
+                        "properties": {
+                            "id": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+
+
+}

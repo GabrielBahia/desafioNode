@@ -15,6 +15,7 @@ class MembroController {
 
   static show = (req, res) => {
     const id = req.params.id;
+    console.log(id);
 
     membros.findById(id)
       .populate(['cargo', 'departamentos'])
