@@ -11,7 +11,6 @@ class CargoController {
 
   static show = (req, res) => {
     const id = req.params.id;
-
     cargos.findById(id)
       .exec((err, cargos) => {
       if(err) {

@@ -1,5 +1,5 @@
 {
-    "openapi": "3.0.0", 
+    "openapi": "3.0.0",
     "info": {
         "version": "1.0.0",
         "title": "API de uma empresa jr.",
@@ -11,13 +11,14 @@
             "http://localhost:3000"
         ]
     },
-
     "paths": {
         "/cargos": {
             "get": {
                 "summary": "Listar cargos",
                 "description": "Essa rota é responsável por listar todos os cargos",
-                "tags": ["Cargos"],
+                "tags": [
+                    "Cargos"
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -35,8 +36,14 @@
             "post": {
                 "summary": "Cadastrar cargo",
                 "description": "Essa rota é responsável por cadastrar um novo cargo",
-                "tags": ["Cargos"],
-                "security": [{"bearerAuth": []}],
+                "tags": [
+                    "Cargos"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -49,7 +56,6 @@
                                         "nome": "assessor"
                                     }
                                 }
-
                             }
                         }
                     }
@@ -68,7 +74,6 @@
                                 "schema": {
                                     "type": "object",
                                     "$ref": "#/components/schemas/Cargo"
-
                                 }
                             }
                         }
@@ -76,12 +81,129 @@
                 }
             }
         },
-        
+        "/cargos/{id}": {
+            "get": {
+                "summary": "Listar cargo",
+                "description": "Essa rota é responsável por listar um cargo pelo id",
+                "tags": [
+                    "Cargos"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do cargo",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Cargo"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Editar cargo",
+                "description": "Essa rota é responsável por editar um novo cargo",
+                "tags": [
+                    "Cargos"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do cargo",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Cargo"
+                            },
+                            "example": {
+                                "membro": {
+                                    "value": {
+                                        "nome": "assessor"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Usuário não autorizado"
+                    },
+                    "500": {
+                        "description": "Falha ao editar cargo"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Cargo"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deletar cargo",
+                "description": "Essa rota é responsável por deletar um cargo pelo id",
+                "tags": [
+                    "Cargos"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do cargo",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Usuário não autorizado"
+                    },
+                    "500": {
+                        "description": "Falha ao deletar cargo"
+                    },
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
         "/cargos/buscaNomeCargo?nome={nome}": {
             "get": {
                 "summary": "Buscar cargo pelo nome",
                 "description": "Essa rota é responsável por buscar um cargo pelo nome",
-                "tags": ["Cargos"],
+                "tags": [
+                    "Cargos"
+                ],
                 "parameters": [
                     {
                         "name": "nome",
@@ -101,121 +223,20 @@
                                 }
                             }
                         }
+                    },
+                    "500": {
+                        "description": "Cargo não encontrado"
                     }
                 }
             }
         },
-        
-        "/cargos/{id}": {
-            "get": {
-                "summary": "Listar cargo",
-                "description": "Essa rota é responsável por listar um cargo pelo id",
-                "tags": ["Cargos"],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "query",
-                        "description": "id do cargo",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Cargo"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "put":{
-                "summary": "Editar cargo",
-                "description": "Essa rota é responsável por editar um novo cargo",
-                "tags": ["Cargos"],
-                "security": [{"bearerAuth": []}],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "query",
-                        "description": "id do cargo",
-                        "required": true
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Cargo"
-                            },
-                            "example": {
-                                "membro": {
-                                    "value": {
-                                        "nome": "assessor"
-                                    }
-                                }
-
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "401": {
-                        "description": "Usuário não autorizado"
-                    },
-                    "500": {
-                        "description": "Falha ao editar cargo"
-                    },
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Cargo"
-
-                                }
-                            }
-                        }
-                    }
-                }
-            } ,
-            "delete": {
-                "summary": "Deletar cargo",
-                "description": "Essa rota é responsável por deletar um cargo pelo id",
-                "tags": ["Cargos"],
-                "security": [{"bearerAuth": []}],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "query",
-                        "description": "id do cargo",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "401": {
-                        "description": "Usuário não autorizado"
-                    },
-                    "500": {
-                        "description": "Falha ao deletar cargo"
-                    },
-                    "200": {
-                        "description": "OK"
-                    }
-                }
-            }  
-        },
-
         "/departamentos": {
             "get": {
                 "summary": "Listar departamentos",
                 "description": "Essa rota é responsável por listar todos os departamentos",
-                "tags": ["Departamentos"],
+                "tags": [
+                    "Departamentos"
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -233,8 +254,14 @@
             "post": {
                 "summary": "Cadastrar departamento",
                 "description": "Essa rota é responsável por cadastrar um novo departamento",
-                "tags": ["Departamentos"],
-                "security": [{"bearerAuth": []}],
+                "tags": [
+                    "Departamentos"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -247,7 +274,6 @@
                                         "nome": "projetos"
                                     }
                                 }
-
                             }
                         }
                     }
@@ -266,7 +292,6 @@
                                 "schema": {
                                     "type": "object",
                                     "$ref": "#/components/schemas/Departamento"
-
                                 }
                             }
                         }
@@ -274,17 +299,50 @@
                 }
             }
         },
-
-        "/departamentos/?id={id}": {
-            "put":{
-                "summary": "Editar departamento",
-                "description": "Essa rota é responsável por editar um novo departamento",
-                "tags": ["Departamentos"],
-                "security": [{"bearerAuth": []}],
+        "/departamentos/{id}": {
+            "get": {
+                "summary": "Listar departamentos",
+                "description": "Essa rota é responsável por listar um departamento pelo id",
+                "tags": [
+                    "Departamentos"
+                ],
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
+                        "description": "id do departamento",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Departamento"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Editar departamento",
+                "description": "Essa rota é responsável por editar um novo departamento",
+                "tags": [
+                    "Departamentos"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
                         "description": "id do departamento",
                         "required": true
                     }
@@ -301,7 +359,6 @@
                                         "nome": "projetos"
                                     }
                                 }
-
                             }
                         }
                     }
@@ -320,7 +377,6 @@
                                 "schema": {
                                     "type": "object",
                                     "$ref": "#/components/schemas/Departamento"
-
                                 }
                             }
                         }
@@ -330,12 +386,18 @@
             "delete": {
                 "summary": "Deletar departamento",
                 "description": "Essa rota é responsável por deletar um departamento pelo id",
-                "tags": ["Departamentos"],
-                "security": [{"bearerAuth": []}],
+                "tags": [
+                    "Departamentos"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "description": "id do departamento",
                         "required": true
                     }
@@ -351,14 +413,15 @@
                         "description": "OK"
                     }
                 }
-            } 
+            }
         },
-
         "/departamentos/buscaNomeDepartamento?nome={nome}": {
             "get": {
                 "summary": "Buscar departamento pelo nome",
                 "description": "Essa rota é responsável por buscar um departamento pelo nome",
-                "tags": ["Departamentos"],
+                "tags": [
+                    "Departamentos"
+                ],
                 "parameters": [
                     {
                         "name": "nome",
@@ -378,16 +441,20 @@
                                 }
                             }
                         }
+                    },
+                    "500": {
+                        "description": "Departamento não encontrado"
                     }
                 }
             }
         },
-
         "/membros": {
             "get": {
                 "summary": "Listar membros",
                 "description": "Essa rota é responsável por listar todos os membro",
-                "tags": ["Membros"],
+                "tags": [
+                    "Membros"
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -396,7 +463,6 @@
                                 "schema": {
                                     "type": "object",
                                     "$ref": "#/components/schemas/Membro"
-
                                 }
                             }
                         }
@@ -406,8 +472,14 @@
             "post": {
                 "summary": "Cadastrar membro",
                 "description": "Essa rota é responsável por cadastrar um novo membro",
-                "tags": ["Membros"],
-                "security": [{"bearerAuth": []}],
+                "tags": [
+                    "Membros"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -421,11 +493,13 @@
                                         "email": "gabriel@code.jr",
                                         "senha": "123",
                                         "aniversario": "1999/09/17",
-                                        "departamentos": ["id1", "id2"],
+                                        "departamentos": [
+                                            "id1",
+                                            "id2"
+                                        ],
                                         "cargo": "id1"
                                     }
                                 }
-
                             }
                         }
                     }
@@ -444,7 +518,6 @@
                                 "schema": {
                                     "type": "object",
                                     "$ref": "#/components/schemas/Membro"
-
                                 }
                             }
                         }
@@ -452,15 +525,17 @@
                 }
             }
         },
-        "/membros/?id={id}": {
+        "/membros/{id}": {
             "get": {
                 "summary": "Listar membro",
                 "description": "Essa rota é responsável por listar um membro pelo id",
-                "tags": ["Membros"],
+                "tags": [
+                    "Membros"
+                ],
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "description": "id do membro",
                         "required": true
                     }
@@ -482,11 +557,13 @@
             "put": {
                 "summary": "Editar membro",
                 "description": "Essa rota é responsável por atualizar um membro específico por id",
-                "tags": ["Membros"],
+                "tags": [
+                    "Membros"
+                ],
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "description": "id do produto",
                         "required": true
                     }
@@ -504,16 +581,22 @@
                                         "email": "gabriel@code.jr",
                                         "senha": "123",
                                         "aniversario": "1999/09/17",
-                                        "departamentos": ["id1", "id2"],
+                                        "departamentos": [
+                                            "id1",
+                                            "id2"
+                                        ],
                                         "cargo": "id1"
                                     }
                                 }
-
                             }
                         }
                     }
                 },
-                "security": [{"bearerAuth": []}],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "responses": {
                     "401": {
                         "description": "Usuário não autorizado"
@@ -528,7 +611,6 @@
                                 "schema": {
                                     "type": "object",
                                     "$ref": "#/components/schemas/Membro"
-
                                 }
                             }
                         }
@@ -538,12 +620,18 @@
             "delete": {
                 "summary": "Deletar Membro",
                 "description": "Essa rota é responsável por deletar um membro pelo id",
-                "tags": ["Membros"],
-                "security": [{"bearerAuth": []}],
+                "tags": [
+                    "Membros"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "description": "id do produto",
                         "required": true
                     }
@@ -560,9 +648,164 @@
                     }
                 }
             }
-        }
-    },
+        },
+        "/membros/buscaNomeMembro?nome={nome}": {
+            "get": {
+                "summary": "Buscar membro pelo nome",
+                "description": "Essa rota é responsável por buscar um membro pelo nome",
+                "tags": [
+                    "Membros"
+                ],
+                "parameters": [
+                    {
+                        "name": "nome",
+                        "in": "query",
+                        "description": "nome do membro",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Membro"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Membro não encontrado"
+                    }
+                }
+            }
+        },
+        "/membros/buscaMembrosPorDepartamento?departamento={departamento}": {
+            "get": {
+                "summary": "Buscar membros pelo departamento",
+                "description": "Essa rota é responsável por listar todos os membros de um departamento",
+                "tags": [
+                    "Membros"
+                ],
+                "parameters": [
+                    {
+                        "name": "departamento",
+                        "in": "query",
+                        "description": "id do departamento",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Membro"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Nenhum membro encontrado"
+                    }
+                }
+            }
+        },
+        "/membros/buscaMembrosPorCargo?cargo={cargo}": {
+            "get": {
+                "summary": "Buscar membros pelo cargo",
+                "description": "Essa rota é responsável por listar todos os membros de um cargo",
+                "tags": [
+                    "Membros"
+                ],
+                "parameters": [
+                    {
+                        "name": "cargo",
+                        "in": "query",
+                        "description": "id do cargo",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Membro"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Nenhum membro encontrado"
+                    }
+                }
+            }
+        },
+        "/membro/login": {
+            "post": {
+                "summary": "Login",
+                "description": "Essa rota é responsável por fazer login no sistema",
+                "tags": [
+                    "Membros"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "value": {
+                                "email": "gabriel@code.jr",
+                                "senha": "123"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Senha ou email inválidos"
+                    },
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/membro/logout": {
+            "get": {
+                "summary": "logout",
+                "description": "Essa rota é responsável por fazer logout no sistema",
+                "tags": [
+                    "Membros"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
 
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    },
     "components": {
         "schemas": {
             "Departamento": {
@@ -634,6 +877,4 @@
             }
         }
     }
-
-
 }
