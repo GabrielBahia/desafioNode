@@ -59,6 +59,17 @@ class CargoController {
     })
   }
 
+  static buscarPorNome = (req, res) => {
+    const nome = req.query.nome
+    cargos.find({'nome': nome}, {}, (err, cargos) => {
+      if (!err && cargos.length != 0) {
+        res.status(200).send(cargos);
+      } else {
+        res.status(500).send({ message: "Cargo não encontrado"});
+      }
+    })
+  }
+
 
 }
 

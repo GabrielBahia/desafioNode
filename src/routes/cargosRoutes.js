@@ -6,10 +6,11 @@ const router = express.Router();
 
 router
   .get("/cargos", CargoController.index)
+  .get("/cargos/buscaNomeCargo", CargoController.buscarPorNome)
   .get("/cargos/:id", CargoController.show)
-  .post("/cargos", CargoController.store)
-  .put("/cargos/:id", CargoController.update)
-  .delete("/cargos/:id", CargoController.delete)
+  .post("/cargos", protect, CargoController.store)
+  .put("/cargos/:id", protect, CargoController.update)
+  .delete("/cargos/:id", protect, CargoController.delete)
 
   module.exports = router;   
 

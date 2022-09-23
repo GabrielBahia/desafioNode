@@ -64,6 +64,40 @@ class MembroController {
     })
   }
 
+  static buscarPorNome = (req, res) => {
+    const nome = req.query.nome
+    membros.find({'nome': nome}, {}, (err, membros) => {
+      if (!err && membros.length != 0) {
+        res.status(200).send(membros);
+      } else {
+        res.status(500).send({ message: "Membro não encontrado"});
+      }
+    })
+  }
+  
+  static listarMembrosPorDepartamento = (req, res) => {
+    const departamento = req.query.departamento
+    membros.find({'departamentos': departamento}, {}, (err, membros) => {
+      if (!err && membros.length != 0) {
+        res.status(200).send(membros);
+      } else {
+        res.status(500).send({ message: "nenhum membro encontrado" })
+      }
+    })
+  }
+
+  static listarMembrosPorCargo = (req, res) => {
+    const cargo = req.query.cargo
+    membros.find({'cargo': cargo}, {}, (err, membros) => {
+      if (!err && membros.length != 0) {
+        res.status(200).send(membros);
+      } else {
+        res.status(500).send({ message: "nenhum membro encontrado" })
+      }
+    })
+  }
+
+
   static async login(req, res) {
     const { email, senha } = req.body;
     const membro = await membros.findOne({ email });

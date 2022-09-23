@@ -7,6 +7,7 @@ const router = express.Router();
 
 router
   .get("/departamentos", DepartamentoController.index)
+  .get("/departamentos/buscaNomeDepartamento", DepartamentoController.buscarPorNome)
   .get("/departamentos/:id", DepartamentoController.show)
   .post("/departamentos", protect, DepartamentoController.store)
   .put("/departamentos/:id", protect, DepartamentoController.update)

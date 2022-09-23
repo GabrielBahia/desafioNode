@@ -6,6 +6,9 @@ const router = express.Router();
 
 router
   .get("/membros", MembroController.index)
+  .get("/membros/buscaNomeMembro", MembroController.buscarPorNome)
+  .get("/membros/buscaMembrosPorDepartamento", MembroController.listarMembrosPorDepartamento)
+  .get("/membros/buscaMembrosPorCargo", MembroController.listarMembrosPorCargo)
   .get("/membros/:id", MembroController.show)
   .post("/membros", protect, MembroController.store)
   .put("/membros/:id", protect, MembroController.update)

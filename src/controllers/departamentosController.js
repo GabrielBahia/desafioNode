@@ -59,6 +59,18 @@ class DepartamentoController {
     })
   }
 
+  static buscarPorNome = (req, res) => {
+    const nome = req.query.nome
+    departamentos.find({'nome': nome}, {}, (err, departamentos) => {
+      if (!err && departamentos.length != 0) {
+        res.status(200).send(departamentos);
+      } else {
+        res.status(500).send({ message: "Departamento não encontrado"});
+      }
+    })
+  }
+  
+
 
 }
 
