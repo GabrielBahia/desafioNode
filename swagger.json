@@ -51,11 +51,7 @@
                                 "$ref": "#/components/schemas/Cargo"
                             },
                             "example": {
-                                "membro": {
-                                    "value": {
-                                        "nome": "assessor"
-                                    }
-                                }
+                                "nome": "assessor"
                             }
                         }
                     }
@@ -136,11 +132,7 @@
                                 "$ref": "#/components/schemas/Cargo"
                             },
                             "example": {
-                                "membro": {
-                                    "value": {
-                                        "nome": "assessor"
-                                    }
-                                }
+                                "nome": "assessor"
                             }
                         }
                     }
@@ -269,11 +261,7 @@
                                 "$ref": "#/components/schemas/Departamento"
                             },
                             "example": {
-                                "membro": {
-                                    "value": {
-                                        "nome": "projetos"
-                                    }
-                                }
+                                "nome": "projetos"
                             }
                         }
                     }
@@ -354,11 +342,7 @@
                                 "$ref": "#/components/schemas/Departamento"
                             },
                             "example": {
-                                "membro": {
-                                    "value": {
-                                        "nome": "projetos"
-                                    }
-                                }
+                                "nome": "projetos"
                             }
                         }
                     }
@@ -487,19 +471,15 @@
                                 "$ref": "#/components/schemas/Membro"
                             },
                             "example": {
-                                "membro": {
-                                    "value": {
-                                        "nome": "Gabriel Gomes Bahia",
-                                        "email": "gabriel@code.jr",
-                                        "senha": "123",
-                                        "aniversario": "1999/09/17",
-                                        "departamentos": [
-                                            "id1",
-                                            "id2"
-                                        ],
-                                        "cargo": "id1"
-                                    }
-                                }
+                                "nome": "Gabriel Gomes Bahia",
+                                "email": "gabriel@code.jr",
+                                "senha": "123",
+                                "aniversario": "1999/09/17",
+                                "departamentos": [
+                                    "id_De_Um_Departamento_Existente",
+                                    "id_De_Um_Departamento_Existente"
+                                ],
+                                "cargo": "id_De_Um_Cargo_Existente"
                             }
                         }
                     }
@@ -564,7 +544,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "id do produto",
+                        "description": "id do membro",
                         "required": true
                     }
                 ],
@@ -575,19 +555,15 @@
                                 "$ref": "#/components/schemas/Membro"
                             },
                             "example": {
-                                "membro": {
-                                    "value": {
-                                        "nome": "Gabriel Gomes Bahia",
-                                        "email": "gabriel@code.jr",
-                                        "senha": "123",
-                                        "aniversario": "1999/09/17",
-                                        "departamentos": [
-                                            "id1",
-                                            "id2"
-                                        ],
-                                        "cargo": "id1"
-                                    }
-                                }
+                                "nome": "Gabriel Gomes Bahia",
+                                "email": "gabriel@code.jr",
+                                "senha": "123",
+                                "aniversario": "1999/09/17",
+                                "departamentos": [
+                                    "id_De_Um_Departamento_Existente",
+                                    "id_De_Um_Departamento_Existente"
+                                ],
+                                "cargo": "id_De_Um_Cargo_Existente"
                             }
                         }
                     }
@@ -755,16 +731,14 @@
                 "tags": [
                     "Membros"
                 ],
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
-                            "value": {
-                                "email": "gabriel@code.jr",
+                            "schema": {
+                                "$ref": "#/components/schemas/Session"
+                            },
+                            "example": {
+                                "email": "g@g",
                                 "senha": "123"
                             }
                         }
@@ -796,15 +770,12 @@
                     "200": {
                         "description": "OK",
                         "content": {
-                            "application/json": {
-
-                            }
+                            "application/json": {}
                         }
                     }
                 }
             }
         }
-
     },
     "components": {
         "schemas": {
@@ -866,6 +837,21 @@
                             }
                         }
                     }
+                }
+            },
+            "Session": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "email": "g@g",
+                    "password": "123"
                 }
             }
         },
