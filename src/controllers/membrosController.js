@@ -15,7 +15,6 @@ class MembroController {
 
   static show = (req, res) => {
     const id = req.params.id;
-    console.log(id);
 
     membros.findById(id)
       .populate(['cargo', 'departamentos'])
@@ -101,7 +100,6 @@ class MembroController {
 
   static async login(req, res) {
     const { email, senha } = req.body;
-    console.log(email, senha);
     const membro = await membros.findOne({ email });
     if (!membro) {
       res.status(400).json("Usuário não existe!!");
